@@ -1,0 +1,22 @@
+<h1>To-do List</h1>
+
+<table>
+  <thead>
+    <th>Task</th>
+    <th>Due Date</th>
+    <th>Memo</th>
+  </thead>
+  <tbody>
+    <% @lists.each do |l| %>
+      <tr>
+        <td><%= l.item_name %></td>
+        <td><%= l.due_date %></td>
+        <td><%= l.memo %></td>
+        <td><%= link_to 'edit', edit_list_path(l) %></td>
+        <td><%= link_to 'delete', list_path(l), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '+', new_list_path %>

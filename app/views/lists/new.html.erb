@@ -1,0 +1,12 @@
+<%= form_for @list, :url => lists_path do |f| %>
+  <%= f.label :item_name, "Task Name" %>
+  <%= f.text_field :item_name %>
+
+  <%= f.label :due_date, "Due Date" %>
+  <%= f.text_field :due_date %>
+
+  <%= f.label :memo, "Memo" %>
+  <%= f.text_area :memo %>
+
+  <%= f.submit "Add" %>
+<% end %>
