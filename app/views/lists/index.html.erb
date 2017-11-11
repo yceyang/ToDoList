@@ -1,22 +1,55 @@
-<h1>To-do List</h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Hi, <small>What's your main foucs for today? Let's get it done!</small></h1>
+  </div>
+  <table class="table">
+    <thead>
+      <th>Task</th>
+      <th>Due Date</th>
+      <th>Memo</th>
+      <th>Status</th>
+    </thead>
+    <tbody>
+      <% @lists.each do |l| %>
 
-<table>
-  <thead>
-    <th>Task</th>
-    <th>Due Date</th>
-    <th>Memo</th>
-  </thead>
-  <tbody>
-    <% @lists.each do |l| %>
-      <tr>
-        <td><%= l.item_name %></td>
-        <td><%= l.due_date %></td>
-        <td><%= l.memo %></td>
-        <td><%= link_to 'edit', edit_list_path(l) %></td>
-        <td><%= link_to 'delete', list_path(l), method: :delete %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <% case l.status %>
+          <% when 1 %>
+            <% status = 'alert-success' %>
+          <% when 2 %>
+            <% status = 'alert-warning' %>
+          <% when 3 %>
+            <% status = 'alert-danger' %>
+        <% end %>
 
-<%= link_to '+', new_list_path %>
+        <tr class=<%= status %> role="alert">
+          <td><%= l.item_name %></td>
+          <td><%= l.due_date %></td>
+          <td><%= l.memo %></td>
+
+          <% case l.status %>
+            <% when 0 %>
+              <td><span class="label label-info">Planning</span></td>
+              <td><a href=<%= edit_list_path(l) %>><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <% when 1 %>
+              <td><span class="label label-success">Done</span></td>
+              <td><span class="glyphicon glyphicon-check"></span></td>
+              <td><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <% when 2 %>
+              <td><span class="label label-warning">Nearly Overdue</span></td>
+              <td><a href=<%= edit_list_path(l) %>><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <% when 3 %>
+              <td><span class="label label-danger">Overdue</span></td>
+              <td><span class="glyphicon glyphicon-time"></span></td>
+              <td><span class="glyphicon glyphicon-ban-circle"></span></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <a href=<%= new_list_path %> >
+    <span class="glyphicon glyphicon-plus"></span>
+  </a>
+</div>
