@@ -4,10 +4,10 @@
   </div>
   <table class="table">
     <thead>
-      <th>Task</th>
-      <th>Due Date</th>
-      <th>Memo</th>
-      <th>Status</th>
+      <th class="col-md-2">Task</th>
+      <th class="col-md-2">Due Date</th>
+      <th class="col-md-2">Memo</th>
+      <th class="col-md-3">Status</th>
     </thead>
     <tbody>
       <% @lists.each do |l| %>
@@ -44,6 +44,7 @@
               <td><span class="glyphicon glyphicon-time"></span></td>
               <td><span class="glyphicon glyphicon-ban-circle"></span></td>
           <% end %>
+          <td><%= link_to 'Done', done_list_path(l), method: :put %></td>
         </tr>
       <% end %>
     </tbody>
