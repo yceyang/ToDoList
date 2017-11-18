@@ -1,9 +1,10 @@
 class List < ApplicationRecord
+  validates_presence_of :item_name, :due_date, :memo
 
   def update_status
     today = Date.today #Date.parse("2017-11-12") 
-    
-    datediff = (self.due_date - today).to_i 
+
+    datediff = (self.due_date - today)
     if self.task_done
       self.update(status: 1) # done
     else        

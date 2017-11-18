@@ -1,13 +1,17 @@
 class ListsController < ApplicationController
 
+  before_action :set_todo, :only => [:edit, :update, :destroy, :done]
+  #after_action :back, :only => [:destroy]
+
   #Read
   def index
-    lists = List.all.order("status")
+    lists = List.all
+
     lists.each do |l|
       l.update_status
     end
 
-    @lists = lists
+    @lists = lists.order("status, due_date")
   end
 
   #Create
@@ -17,47 +21,37 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    @list.save
-
-    @list.update_status
-
-    redirect_to lists_path
+    if @list.save
+      redirect_to lists_path
+    else
+      render :action => :new
+    end
   end
 
   #Update
-  def edit
-    @list = List.find(params[:id])
-  end
-
   def update
-    @list = List.find(params[:id])
-    @list.update_attributes(list_params)
-
-    @list.update_status
-
-    redirect_to lists_path
+    if @list.update_attributes(list_params)
+      redirect_to lists_path
+    else
+      render :action => :edit
+    end
   end
 
   #Delete
   def destroy
-    @list = List.find(params[:id])
-    @list.destroy
-
     redirect_to lists_path
   end
 
+  # Finish the task
   def done
-    @list = List.find(params[:id])
-
-    if @list.task_done == true
-      @list.update(task_done: false)
-    else
-      @list.update(task_done: true)
-    end
-
-    @list.update_status
-    
+    @list.update(task_done: true)
     redirect_to lists_path
+  end
+
+  private
+
+  def set_todo
+    @list = List.find(params[:id])
   end
 
   def list_params
