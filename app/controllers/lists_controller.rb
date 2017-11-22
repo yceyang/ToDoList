@@ -29,6 +29,12 @@ class ListsController < ApplicationController
   end
 
   #Update
+  def edit
+    if @list.status == 1 || @list.status == 4
+      render lists_path
+    end
+  end
+
   def update
     if @list.update_attributes(list_params)
       redirect_to lists_path
@@ -39,8 +45,15 @@ class ListsController < ApplicationController
 
   #Delete
   def destroy
-    @list.destroy
-    redirect_to lists_path
+
+  if @list.status <= 3
+      @list.destroy
+      flash[:alert] = "Task was successfully deleted !!"
+      redirect_to lists_path
+    else
+      flash[:alert] = "Task is overdue, can not be deleted !!"
+      redirect_to todos_path
+    end
   end
 
   # Finish the task
