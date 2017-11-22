@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="page-header">
+        <% case @list.status %>
+          <% when 0 %>
+            <h1>Hey,<small>There are <%= (@list.due_date - Date.today).to_i %> days left before the task overdue.</small></h1>
+            <span class="label label-info">Planning</span>
+          <% when 1 %>
+            <h1>Yeah!<small>Good job!</small></h1>
+            <span class="label label-success">Done</span>
+          <% when 2 %>
+            <h1>Hey,<small>You need to be aware of the due date. </small></h1>
+            <span class="label label-warning">Nearly Overdue</span>
+          <% when 3 %>
+            <h1>Opps!<small>You need be hurry!</small></h1>
+            <span class="label label-danger">Overdue</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-1">
+      <div class="vertical-center">
+        <a href=<%= lists_path() %> ><span class="glyphicon glyphicon-chevron-left"></span>Back</a>
+      </div>
+    </div>
+
+    <div class="col-sm-11">
+      <h3>Task</h3>
+      <h5><%= @list.item_name %></h5>
+      <h3>Due Date</h3>
+      <h5><%= @list.due_date %></h5>
+      <h3>Memo</h3>
+      <h5><%= @list.memo %></h5>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 
-  before_action :set_todo, :only => [:edit, :update, :destroy, :done]
+  before_action :set_todo, :only => [:show, :edit, :update, :destroy, :done]
   #after_action :back, :only => [:destroy]
 
   #Read
@@ -39,6 +39,7 @@ class ListsController < ApplicationController
 
   #Delete
   def destroy
+    @list.destroy
     redirect_to lists_path
   end
 

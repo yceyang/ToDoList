@@ -1,20 +1,20 @@
 <div class="container">
   <div class="page-header">
-    <h1>Hi, <small>What's your main foucs for today? Let's get it done!</small></h1>
+    <h1>Hi. <small>What's your main foucs for today? Let's get it done!</small></h1>
   </div>
-  <table class="table">
+  <table class="table my-hover">
     <thead>
       <th class="col-md-3">Task</th>
       <th class="col-md-3">Memo</th>
-      <th class="col-md-2 text-center">Due Date</th>
-      <th class="col-md-1 text-center">Status</th>
-      <th class="col-md-1 text-center"></th>
-      <th class="col-md-1 text-center"></th>
-      <th class="col-md-1 text-center"></th>
+      <th class="col-md-2">Due Date</th>
+      <th class="col-md-1">Status</th>
+      <th class="text-center"></th>
+      <th class="text-center"></th>
+      <th class="text-center"></th>
+      <th class="text-center"></th>
     </thead>
     <tbody>
       <% @lists.each do |l| %>
-
         <% case l.status %>
           <% when 1 %>
             <% status = 'alert-success' %>
@@ -24,29 +24,33 @@
             <% status = 'alert-danger' %>
         <% end %>
 
-        <tr class=<%= status %> role="alert">
+        <tr class=<%= status %> >
           <td><%= l.item_name %></td>
           <td><%= l.memo %></td>
-          <td class="text-center"><%= l.due_date %></td>
+          <td><%= l.due_date %></td>
 
           <% case l.status %>
             <% when 0 %>
-              <td class="text-center"><span class="label label-info">Planning</span></td>
+              <td><span class="label label-info">Planning</span></td>
+              <td class="text-center"><a href=<%= list_path(l) %>><span class="glyphicon glyphicon-search"></span></a></td>
               <td class="text-center"><a href=<%= edit_list_path(l) %>><span class="glyphicon glyphicon-pencil"></span></a></td>
               <td class="text-center"><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
               <td class="text-center"><%= link_to 'Done', done_list_path(l), method: :put %></td>
             <% when 1 %>
-              <td class="text-center"><span class="label label-success">Done</span></td>
+              <td><span class="label label-success">Done</span></td>
+              <td class="text-center"><a href=<%= list_path(l) %>><span class="glyphicon glyphicon-search"></span></a></td>
               <td class="text-center"><span class="glyphicon glyphicon-check"></span></td>
               <td class="text-center"><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
               <td></td>
             <% when 2 %>
-              <td class="text-center"><span class="label label-warning">Nearly Overdue</span></td>
+              <td><span class="label label-warning">Nearly Overdue</span></td>
+              <td class="text-center"><a href=<%= list_path(l) %>><span class="glyphicon glyphicon-search"></span></a></td>
               <td class="text-center"><a href=<%= edit_list_path(l) %>><span class="glyphicon glyphicon-pencil"></span></a></td>
               <td class="text-center"><a href=<%= list_path(l) %> data-method="delete"><span class="glyphicon glyphicon-trash"></span></a></td>
               <td class="text-center"><%= link_to 'Done', done_list_path(l), method: :put %></td>
             <% when 3 %>
-              <td class="text-center"><span class="label label-danger">Overdue</span></td>
+              <td><span class="label label-danger">Overdue</span></td>
+              <td class="text-center"><a href=<%= list_path(l) %>><span class="glyphicon glyphicon-search"></span></a></td>
               <td class="text-center"><span class="glyphicon glyphicon-time"></span></td>
               <td class="text-center"><span class="glyphicon glyphicon-ban-circle"></span></td>
               <td class="text-center"></td>
