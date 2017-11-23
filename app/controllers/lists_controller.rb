@@ -31,7 +31,7 @@ class ListsController < ApplicationController
   #Update
   def edit
     if @list.status == 1 || @list.status == 4
-      render lists_path
+      redirect_to lists_path
     end
   end
 
